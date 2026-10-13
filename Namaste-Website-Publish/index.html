@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Namaste Nutritive Mart - Healthy & Wheat - Free Foods</title>
+
+     <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+      <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="top-bar">
+
+            <div class="logo">
+
+                <div>
+
+                <h1> Welcome To Namaste Nutritive Mart </h1>
+                    <h2>Namaste Nutritive Mart</h2>
+                    <p>Healthy • Natural • Nutritive</p>
+                </div>
+
+            </div>
+
+            <div class="header-actions">
+
+                <div class="search-box">
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search products..."
+                    >
+                    <button onclick="searchProducts()">🔍</button>
+                </div>
+
+                <button class="login-btn" onclick="showLogin()">
+                    👤 Login
+                </button>
+
+                <button class="cart-btn" onclick="openCart()">
+                    🛒 Cart
+                    <span id="cartCount">0</span>
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="navbar">
+
+            <a href="#home">Home</a>
+
+            <a href="#products">Products</a>
+
+            <a href="#categories">Categories</a>
+
+            <a href="#offers">Offers</a>
+
+            <a href="#contact">Contact</a>
+
+             <a href="javascript:void(0)" onclick="trackMyOrder()">
+               📦 Track Order
+    </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ================= HOME ================= -->
+
+    <main>
+
+        <section id="home" class="hero">
+
+            <div class="hero-content">
+
+                <p class="small-heading">
+                    Welcome to Namaste Nutritive Mart
+                </p>
+
+                <h2>
+                    Healthy Products<br>
+                    For A Healthy Life
+                </h2>
+
+                <p>
+                    Discover nutritious, natural and quality food
+                    products at affordable prices.
+                </p>
+
+                <button onclick="goToProducts()" class="primary-btn">
+                    Shop Now
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CATEGORIES ================= -->
+
+        <section id="categories" class="section">
+
+            <h2 class="section-title">
+                Shop By Category
+            </h2>
+
+            <p class="section-subtitle">
+                Choose your favourite category
+            </p>
+
+
+            <div class="category-container">
+
+                <div class="category-card"
+                     onclick="filterCategory('flour')">
+
+                    <div class="category-icon">🌾</div>
+
+                    <h3>Flours</h3>
+
+                    <p>Healthy flour products</p>
+
+                </div>
+
+
+                <div class="category-card"
+                     onclick="filterCategory('Premixes')">
+
+                    <div class="category-icon">🥨</div>
+
+                    <h3>Healthy Premixes</h3>
+
+                    <p>Nutritious Premixes</p>
+
+                </div>
+
+                <div class="category-card"
+                     onclick="filterCategory('Breakfast Edition')">
+
+                    <div class="category-icon">🥣</div>
+
+                    <h3>Breakfast Edition</h3>
+
+                    <p>Nutritive Breakfast Edition</p>
+
+                    </div>
+
+                    <div class="category-card"
+                         onclick="filterCategory('Cookies & Biscuits')">
+
+                        <div class="category-icon">🍪</div>
+
+                        <h3>Cookies & Biscuits</h3>
+
+                        <p>Tasty & healthy cookies & Biscuits </p>
+
+                </div>
+
+             </div>
+
+        </section>
+
+
+        <!-- ================= PRODUCTS ================= -->
+
+        <section id="products" class="section products-section">
+
+            <h2 class="section-title">
+                Our Products
+            </h2>
+
+            <p class="section-subtitle">
+                Explore our healthy and nutritious products
+            </p>
+
+
+            <div class="filter-buttons">
+
+                <button onclick="displayProducts('all')">
+                    All
+                </button>
+
+                <button onclick="displayProducts('Flours')">
+                    Flours
+                </button>
+
+                <button onclick="displayProducts('Premixes')">
+                    Premixes
+                </button>
+
+                <button onclick="displayProducts('Breakfast Edition')">
+                    Breakfast Edition
+                </button>
+
+                <button onclick="displayProducts('Cookies & Biscuits')">
+                    Cookies & Biscuits
+                </button>
+
+            </div>
+
+
+            <!-- Products JavaScript se yaha show honge -->
+
+            <div
+                id="productContainer"
+                class="product-container">
+            </div>
+
+        </section>
+
+
+        <!-- ================= OFFERS ================= -->
+
+        <section id="offers" class="offers-section">
+
+            <div class="offer-content">
+
+                <span>🔥 Special Offer</span>
+
+                <h2>
+                    Healthy Choices,<br>
+                    Better Prices!
+                </h2>
+
+                <p>
+                    Get special discounts on selected products.
+                </p>
+
+                <button
+                    onclick="displayProducts('all')"
+                    class="primary-btn">
+                    Shop Offers
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= WHY CHOOSE US ================= -->
+
+        <section class="section">
+
+            <h2 class="section-title">
+                Why Choose Namaste Nutritive?
+            </h2>
+
+            <div class="features">
+
+                <div class="feature">
+                    <div>🌿</div>
+                    <h3>Natural Products</h3>
+                    <p>Carefully selected quality products.</p>
+                </div>
+
+                <div class="feature">
+                    <div>🚚</div>
+                    <h3>Fast Delivery</h3>
+                    <p>Get your products delivered conveniently.</p>
+                </div>
+
+                <div class="feature">
+                    <div>💰</div>
+                    <h3>Best Prices</h3>
+                    <p>Quality products at reasonable prices.</p>
+                </div>
+
+                <div class="feature">
+                    <div>⭐</div>
+                    <h3>Quality First</h3>
+                    <p>We focus on quality and customer satisfaction.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CONTACT ================= -->
+
+        <section id="contact" class="contact-section">
+
+            <div class="contact-container">
+
+                <div class="contact-info">
+
+                    <h2>Contact Us</h2>
+
+                    <p>
+                        Have a question about our products?
+                        Contact Namaste Nutritive Mart.
+                    </p>
+
+                    <p>📧 Email: support@namastenutritivemart.com</p>
+
+                    <p>📞 Phone: +91 XXXXX XXXXX</p>
+
+                    <p>📍 India</p>
+
+                </div>
+
+
+                <form
+                    class="contact-form"
+                    onsubmit="sendMessage(event)">
+
+                    <input
+                        type="text"
+                        placeholder="Neha Sonkar"
+                        required
+                    >
+
+                    <input
+                        type="email"
+                        placeholder="nehasonkar1027@gmail.com"
+                        required
+                    >
+
+                    <textarea
+                        placeholder="Your Message"
+                        rows="5"
+                        required>
+                    </textarea>
+
+                    <button type="submit" class="primary-btn">
+                        Send Message
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= CART ================= -->
+
+    <div id="cartModal" class="modal">
+
+        <div class="modal-content">
+
+            <button class="close-btn" onclick="closeCart()">
+                ×
+            </button>
+
+            <h2>🛒 Your Cart</h2>
+
+            <div id="cartItems"></div>
+
+            <div class="cart-total">
+
+                <h3>
+                    Total:
+                    ₹<span id="cartTotal">0</span>
+                </h3>
+
+                <button
+                     class="primary-btn"
+                     onclick="goToCheckout()">
+                     Proceed to Checkout
+                </button>
+
+                <button 
+                     class="primary-btn" 
+                     onclick="payWithUPI()"> 
+                     💳 Pay with UPI
+               </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= LOGIN ================= -->
+
+    <div id="loginModal" class="modal">
+
+        <div class="modal-content">
+
+            <button class="close-btn" onclick="closeLogin()">
+                ×
+            </button>
+
+            <h2>Login</h2>
+
+            <input
+                type="email"
+                placeholder="Email"
+                class="modal-input"
+            >
+
+            <input
+                type="password"
+                placeholder="Password"
+                class="modal-input"
+            >
+
+            <button
+                class="primary-btn"
+                onclick="loginUser()">
+                Login
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="footer-container">
+
+            <div>
+                <h3>Namaste Nutritive</h3>
+
+                <p>
+                    Healthy and nutritious products
+                    for everyday life.
+                </p>
+            </div>
+
+
+            <div>
+
+                <h3>Quick Links</h3>
+
+                <a href="#home">Home</a>
+                <a href="#products">Products</a>
+                <a href="#categories">Categories</a>
+                <a href="#offers">Offers</a>
+                <a href="#contact">Contact</a>
+
+            </div>
+
+
+            <div>
+
+                <h3>Customer Support</h3>
+
+                <a href="shipping.html">Shipping Information</a>
+               <a href="return-refund.html">Return & Refund Policy</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="terms-conditions.html">Terms & Conditions</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 Namaste Nutritive Mart.
+            All Rights Reserved.
+
+        </div>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

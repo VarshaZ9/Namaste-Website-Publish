@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Order Successful - Namaste Nutritive</title>
+
+    <link rel="stylesheet"
+          href="style.css">
+
+</head>
+
+<body>
+
+    <h1>🎉 Order Placed Successfully!</h1>
+
+    <p>
+        Order ID:
+        <span id="successOrderId"></span>
+    </p>
+
+    <p>
+        Name:
+        <span id="successCustomerName"></span>
+    </p>
+
+    <p>
+        Total: ₹
+        <span id="successTotal"></span>
+    </p>
+
+    <p>
+        Payment:
+        <span id="successPayment"></span>
+    </p>
+
+    <p>
+        Address:
+        <span id="successAddress"></span>
+    </p>
+
+    <hr>
+
+    <h2>📦 Order Status</h2>
+
+    <p>
+        <strong id="orderStatus">
+            Order Confirmed
+        </strong>
+    </p>
+
+    <h3>🚚 Expected Delivery</h3>
+
+    <p id="expectedDelivery">
+        3–7 Business Days
+    </p>
+
+    <h2>📍 Track Your Order</h2>
+
+    <div id="orderTracking">
+
+        <p>📦 Order Placed</p>
+
+        <p>✅ Order Confirmed</p>
+
+        <p>📦 Order Packed</p>
+
+        <p>🚚 Order Shipped</p>
+
+        <p>🛵 Out for Delivery</p>
+
+        <p>🎉 Delivered</p>
+
+    </div>
+
+    <br>
+
+    <button
+        id="cancelOrderBtn"
+        onclick="cancelCurrentOrder()">
+
+        ❌ Cancel Order
+
+    </button>
+
+    <br><br>
+
+        <button
+    id="returnRefundBtn"
+    onclick="window.location.href='return-refund.html'">
+
+    🔄 Return / Refund Policy
+
+</button>
+
+<br><br>
+
+<button 
+    onclick="window.location.href='index.html'">
+
+        Continue Shopping
+
+    </button>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>

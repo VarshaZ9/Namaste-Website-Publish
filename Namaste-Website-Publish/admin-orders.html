@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Orders - Namaste Nutritive Mart</title> 
+    
+    <link rel="stylesheet" href="style.css"> <!DOCTYPE html>
+
+</head>
+
+<body>
+
+    <h1>🛍️ Namaste Nutritive Mart - Orders</h1>
+
+    <div id="ordersContainer">
+        <p>Loading orders...</p>
+    </div>
+
+
+    <script>
+
+       async function loadOrders() {
+
+        const ordersContainer =
+            document.getElementById("ordersContainer");
+
+        ordersContainer.innerHTML =
+            "<p>Loading orders...</p>";
+
+        try {
+
+            const response =
+                await fetch(
+                    "http://localhost:5000/orders"
+                );
+
+            const orders =
+                await response.json();
+
+
+            if (
+                !Array.isArray(orders) ||
+                orders.length === 0
+            ) {
+
+                ordersContainer.innerHTML =
+                    "<p>No orders found.</p>";
+
+                return;
+            }
+
+
+            ordersContainer.innerHTML = "";
+
+
+            orders.forEach((order, index) => {
+
+                const orderBox =
+                    document.createElement("div");
+
+
+                orderBox.style.border =
+                    "1px solid #ccc";
+
+                orderBox.style.padding =
+                    "15px";
+
+                orderBox.style.marginBottom =
+                    "15px";
+
+
+                orderBox.innerHTML = `
+
+                    <h2>
+                        Order ID: ${order.orderId}
+                    </h2>
+
+                    <p>
+                        <strong>Customer:</strong>
+                        ${order.customer?.name || ""}
+                    </p>
+
+                    <p>
+                        <strong>Mobile:</strong>
+                        ${order.customer?.mobile || ""}
+                    </p>
+
+                    <p>
+                        <strong>Email:</strong>
+                        ${order.customer?.email || ""}
+                    </p>
+
+                    <p>
+                        <strong>Address:</strong>
+                        ${order.customer?.address || ""}
+                    </p>
+
+                    <p>
+                        <strong>City:</strong>
+                        ${order.customer?.city || ""}
+                    </p>
+
+                    <p>
+                        <strong>State:</strong>
+                        ${order.customer?.state || ""}
+                    </p>
+
+                    <p>
+                        <strong>Pincode:</strong>
+                        ${order.customer?.pincode || ""}
+                    </p>
+
+                    <p>
+                        <strong>Total:</strong>
+                        ₹${order.total || 0}
+                    </p>
+
+                    <p>
+                        <strong>Products:</strong>
+                    </p>
+
+                    <ul>
+                        ${
+                            (order.products || [])
+                            .map(product => `
+                                <li>
+                                    ${product.name}
+                                    ×
+                                    ${product.quantity || 1}
+                                </li>
+                            `)
+                            .join("")
+                        }
+                    </ul>
+
+                    <p>
+                        <strong>Payment:</strong>
+                        ${order.paymentMethod || ""}
+                    </p>
+
+                    <p>
+                        <strong>Current Status:</strong>
+                        <span id="status-${index}">
+                            ${order.status || "Order Confirmed"}
+                        </span>
+                    </p>
+
+                    <label>
+                        <strong>Update Status:</strong>
+                    </label>
+
+                    <select
+                        onchange="updateOrderStatus(
+                            '${order.orderId}',
+                            this.value
+                        )"
+                    >
+
+                        <option value="Order Confirmed"
+                            ${order.status === "Order Confirmed" ? "selected" : ""}>
+                            Order Confirmed
+                        </option>
+
+                        <option value="Order Packed"
+                            ${order.status === "Order Packed" ? "selected" : ""}>
+                            Order Packed
+                        </option>
+
+                        <option value="Order Shipped"
+                            ${order.status === "Order Shipped" ? "selected" : ""}>
+                            Order Shipped
+                        </option>
+
+                        <option value="Out for Delivery"
+                            ${order.status === "Out for Delivery" ? "selected" : ""}>
+                            Out for Delivery
+                        </option>
+
+                        <option value="Delivered"
+                            ${order.status === "Delivered" ? "selected" : ""}>
+                            Delivered
+                        </option>
+
+                        <option value="Cancelled"
+                            ${order.status === "Cancelled" ? "selected" : ""}>
+                            Cancelled
+                        </option>
+
+                    </select>
+
+                `;
+
+
+                ordersContainer.appendChild(orderBox);
+
+            });
+
+
+        } catch (error) {
+
+            console.error(
+                "Orders loading error:",
+                error
+            );
+
+            ordersContainer.innerHTML = `
+                <p>
+                    ❌ Orders load nahi ho pa rahe.
+                    Backend check karein.
+                </p>
+            `;
+
+        }
+
+    }
+
+
+    async function updateOrderStatus(
+        orderId,
+        newStatus
+    ) {
+
+        try {
+
+            const response =
+                await fetch(
+                    `http://localhost:5000/orders/${orderId}/status`,
+                    {
+                        method: "PUT",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            status: newStatus
+                        })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok || !data.success) {
+
+                throw new Error(
+                    data.message ||
+                    "Status update failed."
+                );
+
+            }
+
+
+            alert(
+                "Order status updated to: " +
+                newStatus
+            );
+
+
+            loadOrders();
+
+
+        } catch (error) {
+
+            console.error(
+                "Status update error:",
+                error
+            );
+
+            alert(
+                "Order status update nahi ho paya."
+            );
+
+        }
+
+    }
+
+
+    loadOrders();
+
+
+    </script>
+
+</body>
+
+</html>
+
+
+
