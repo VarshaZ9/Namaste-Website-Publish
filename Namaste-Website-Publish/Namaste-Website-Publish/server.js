@@ -5,7 +5,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
-const Razorpay = require("razorpay");
+
 const Razorpay = require("razorpay");
 
 let razorpay = null;
