@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+`   <title>Checkout - Namaste Nutritive</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="top-header">
+
+        <div class="logo">
+            <h1>Welcome To Namaste Nutritive 🙏</h1>
+        </div>
+
+        <div class="header-actions">
+
+            <button type="button" onclick="window.location.href='index.html'">
+                Home
+            </button>
+
+            <button type="button" onclick="window.location.href='cart.html'">
+                🛒 Cart
+                <span id="cartCount">0</span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- Checkout Section -->
+    <section class="checkout-section">
+
+        <h2>Checkout</h2>
+
+        <div class="checkout-container">
+
+            <!-- Customer Details -->
+            <div class="checkout-form">
+
+                <h3>Delivery Details</h3>
+
+                <form id="checkoutForm">
+
+                    <label for="customerName">Full Name</label>
+
+                    <input
+                        type="text"
+                        id="customerName"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+
+                    <label for="customerMobile">Mobile Number</label>
+
+                    <input
+                        type="tel"
+                        id="customerMobile"
+                        placeholder="Enter 10 digit mobile number"
+                        pattern="[0-9]{10}"
+                        maxlength="10"
+                        required
+                    >
+
+
+                    <label for="customerEmail">Email</label>
+
+                    <input
+                        type="email"
+                        id="customerEmail"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+
+                    <label for="customerAddress">Address</label>
+
+                    <textarea
+                        id="customerAddress"
+                        placeholder="House No., Street, Area"
+                        rows="4"
+                        required
+                    ></textarea>
+
+
+                    <label for="customerCity">City</label>
+
+                    <input
+                        type="text"
+                        id="customerCity"
+                        placeholder="Enter city"
+                        required
+                    >
+
+
+                    <label for="customerState">State</label>
+
+                    <input
+                        type="text"
+                        id="customerState"
+                        placeholder="Enter state"
+                        required
+                    >
+
+
+                    <label for="customerPincode">Pincode</label>
+
+                    <input
+                        type="text"
+                        id="customerPincode"
+                        placeholder="Enter 6 digit pincode"
+                        pattern="[0-9]{6}"
+                        maxlength="6"
+                        required
+                    >
+
+
+                    <!-- Payment Method -->
+                    <h3>Payment Method</h3>
+
+                    <div class="payment-option">
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="payment"
+                                value="cod"
+                                checked
+                            >
+                            Cash on Delivery
+                        </label>
+
+
+                        <label>
+                            <input
+                                type="radio"
+                                name="payment"
+                                value="online"
+                            >
+                            Online Payment
+                        </label>
+
+                    </div>
+
+
+                    <!-- UPI Payment Box -->
+                    <div
+                        id="upiPaymentBox"
+                        class="upi-payment-box"
+                        style="display: none;"
+                    >
+
+                        <h3>Pay Using UPI</h3>
+
+                        <p>
+                            Scan this QR code with any UPI app
+                        </p>
+
+
+                        <p>
+                            Amount:
+                            <strong>
+                                ₹<span id="upiAmount">0.00</span>
+                            </strong>
+                        </p>
+
+
+                        <!-- QR Code -->
+                        <div
+                            id="upiQrCode"
+                            class="upi-qr-code"
+                        ></div>
+
+
+                        <!-- UPI Button -->
+                        <button
+                            type="button"
+                            id="upiPayButton"
+                            class="primary-btn"
+                        >
+                            📱 Open UPI App
+                        </button>
+
+
+                        <!-- Payment Confirmation -->
+                        <div
+                            id="paymentConfirmation"
+                            style="display: none;"
+                        >
+
+                            <p>
+                                After completing payment, enter your
+                                UTR / Transaction ID below.
+                            </p>
+
+
+                            <input
+                                type="text"
+                                id="utrNumber"
+                                placeholder="Enter UTR / Transaction ID"
+                                maxlength="50"
+                            >
+
+
+                            <button
+                                type="button"
+                                id="confirmPaymentButton"
+                                class="primary-btn"
+                            >
+                                ✅ I Have Paid
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Place Order -->
+                    <button
+                        type="submit"
+                        class="place-order-btn"
+                    >
+                        Place Order
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- Order Summary -->
+            <div class="checkout-summary">
+
+                <h3>Order Summary</h3>
+
+
+                <div id="checkoutItems">
+                    <!-- Products JavaScript से आएंगे -->
+                </div>
+
+
+                <hr>
+
+
+                <div class="checkout-row">
+
+                    <span>Subtotal</span>
+
+                    <span>
+                        ₹<span id="checkoutSubtotal">0</span>
+                    </span>
+
+                </div>
+
+
+                <div class="checkout-row">
+
+                    <span>Delivery</span>
+
+                    <span>FREE</span>
+
+                </div>
+
+
+                <hr>
+
+
+                <div class="checkout-total">
+
+                    <span>Total</span>
+
+                    <span>
+                        ₹<span id="checkoutTotal">0</span>
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <p>
+            © 2026 Namaste Nutritive. All Rights Reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <!-- Main JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>
+
