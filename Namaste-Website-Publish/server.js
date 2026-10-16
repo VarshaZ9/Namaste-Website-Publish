@@ -229,6 +229,34 @@ app.post("/orders", (req, res) => {
             "Total orders saved:",
             orders.length
         );
+         try {
+            await transporter.sendMail({
+                from: process.env.EMAIL_USER,
+                to: process.env.ADMIN_EMAIL,
+                subject: `New Order Received - ${order.orderId}`,
+                text: `
+New order received on Namaste Nutritive Mart.
+
+Order ID: ${order.orderId}
+Customer: ${order.customer?.name || "N/A"}
+Mobile: ${order.customer?.mobile || "N/A"}
+Email: ${order.customer?.email || "N/A"}
+Address: ${order.customer?.address || "N/A"}
+City: ${order.customer?.city || "N/A"}
+State: ${order.customer?.state || "N/A"}
+Pincode: ${order.customer?.pincode || "N/A"}
+Payment: ${order.paymentMethod || "N/A"}
+Total: ${order.total || "N/A"}
+
+Products:
+${JSON.stringify(order.products || [], null, 2)}
+                `
+            });
+
+            console.log("Order notification email sent.");
+        } catch (emailError) {
+            console.error("Email notification failed:", emailError.message);
+        }
 
 
         res.json({
