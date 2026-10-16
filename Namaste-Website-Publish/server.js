@@ -98,7 +98,7 @@ app.get("/orders", (req, res) => {
    RECEIVE CUSTOMER ORDERS
 ========================================================= */
 
-app.post("/orders", (req, res) => {
+app.post("/orders", async (req, res) => {
 
     try {
 
