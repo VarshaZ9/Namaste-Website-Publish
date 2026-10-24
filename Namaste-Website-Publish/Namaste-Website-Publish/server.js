@@ -2,23 +2,24 @@ const express = require("express");
 const fs = require("fs");
 const path = require("path");
 const cors = require("cors");
+const nodemailer = require("nodemailer");
 require("dotenv").config();
 
 const app = express();
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_APP_PASSWORD
+    }
+});
 
 const Razorpay = require("razorpay");
 
-let razorpay = null;
-
-if (
-    process.env.RAZORPAY_KEY_ID &&
-    process.env.RAZORPAY_KEY_SECRET
-) {
-    razorpay = new Razorpay({
-        key_id: process.env.RAZORPAY_KEY_ID,
-        key_secret: process.env.RAZORPAY_KEY_SECRET
-    });
-}
+const razorpay = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET
+});
 
 const PORT = process.env.PORT || 5000;
 
@@ -226,6 +227,37 @@ app.post("/orders", (req, res) => {
             "Total orders saved:",
             orders.length
         );
+
+        // Send email notification to admin
+transporter.sendMail({
+    from: process.env.EMAIL_USER,
+    to: process.env.ADMIN_EMAIL,
+    subject: "New Order Received - Namaste Nutritive Mart",
+    text: `
+New Customer Order Received!
+
+Order ID: ${order.orderId}
+Customer: ${order.customer?.name}
+Mobile: ${order.customer?.mobile}
+Email: ${order.customer?.email}
+Address: ${order.customer?.address}
+City: ${order.customer?.city}
+State: ${order.customer?.state}
+Pincode: ${order.customer?.pincode}
+
+Payment Method: ${order.paymentMethod}
+Total Amount: Rs. ${order.total}
+
+Products:
+${JSON.stringify(order.products, null, 2)}
+`
+})
+.then(() => {
+    console.log("Order notification email sent successfully!");
+})
+.catch((error) => {
+    console.error("Email notification failed:", error.message);
+});
 
 
         res.json({
