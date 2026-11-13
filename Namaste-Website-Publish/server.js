@@ -230,12 +230,17 @@ app.post("/orders", async (req, res) => {
             orders.length
         );
          try {
-            await transporter.sendMail({
-                from: process.env.EMAIL_USER,
-                to: process.env.ADMIN_EMAIL,
-                subject: `New Order Received - ${order.orderId}`,
-                text: `
-New order received on Namaste Nutritive Mart.
+           const resendResponse = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+        "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        from: "Namaste Nutritive Mart <onboarding@resend.dev>",
+        to: [process.env.ADMIN_EMAIL],
+        subject: `New Order Received - ${order.orderId}`,
+        text: `New order received on Namaste Nutritive Mart.
 
 Order ID: ${order.orderId}
 Customer: ${order.customer?.name || "N/A"}
@@ -249,11 +254,17 @@ Payment: ${order.paymentMethod || "N/A"}
 Total: ${order.total || "N/A"}
 
 Products:
-${JSON.stringify(order.products || [], null, 2)}
-                `
-            });
+${JSON.stringify(order.products || [], null, 2)}`
+    })
+});
 
-            console.log("Order notification email sent.");
+const resendResult = await resendResponse.json();
+
+if (!resendResponse.ok) {
+    throw new Error(JSON.stringify(resendResult));
+}
+
+console.log("Order notification email sent:", resendResult.id);
         } catch (emailError) {
             console.error("Email notification failed:", emailError.message);
         }
