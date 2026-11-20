@@ -1480,7 +1480,7 @@ async function sendOrderToServer(order) {
     try {
 
         const response = await fetch(
-            "http://localhost:5000/orders",
+            "https://namaste-website-publish-8.onrender.com/orders",
             {
                 method: "POST",
 
